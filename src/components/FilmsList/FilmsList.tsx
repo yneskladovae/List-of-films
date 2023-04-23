@@ -1,6 +1,6 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addFilmAC, changeIsWatchedStatusAC, initialStateType} from "../../store/filmsListReducer";
+import {addFilmAC, addFilmRatingAC, changeIsWatchedStatusAC, initialStateType} from "../../store/filmsListReducer";
 import {AppRootStateType} from "../../store/state";
 
 export const FilmsList = () => {
@@ -17,22 +17,34 @@ export const FilmsList = () => {
         dispatch(addFilmAC(title))
     }
 
+    const addFilmRatingHandler = (id: string, ratingValue: number) => {
+        dispatch(addFilmRatingAC(id, ratingValue))
+    }
+
     return (
         <div>
             <h1>List of films</h1>
-
             <input value={title} onChange={addFilmOnChangeHandler}/>
             <button onClick={addFilmOnClickHandler}>+</button>
             <ul>
                 {films.map(el => {
                     return (
                         <li key={el.id}>
-                            <input
-                                onChange={(e) => dispatch(changeIsWatchedStatusAC(el.id, e.currentTarget.checked))}
-                                type="checkbox" checked={el.isWatched}
-                            />
-                            {el.film}
-                            {el.isWatched && <div> Rating of the film: <FilmRating/></div>}
+                            <div>
+                                <strong>{el.film}</strong>
+                            </div>
+                            <label>Film viewed:
+                                <input
+                                    onChange={(e) => dispatch(changeIsWatchedStatusAC(el.id, e.currentTarget.checked))}
+                                    type="checkbox" checked={el.isWatched}
+                                />
+                            </label>
+                            {el.isWatched && <div>
+                                <label>
+                                    Rating of the film: <FilmRating
+                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => addFilmRatingHandler(el.id, +e.target.value)}/>
+                                </label>
+                            </div>}
                         </li>
                     )
                 })}
@@ -41,14 +53,18 @@ export const FilmsList = () => {
     );
 };
 
-export const FilmRating = () => {
+export type FilmRatingPropsType = {
+    onChange: (e: ChangeEvent<HTMLSelectElement>) => void
+}
+
+export const FilmRating: FC<FilmRatingPropsType> = ({onChange}) => {
     return (
-        <select name="select">
-            <option value="value1" >1</option>
-            <option value="value2" >2</option>
-            <option value="value3">3</option>
-            <option value="value4">4</option>
-            <option value="value5">5</option>
+        <select onChange={onChange} name="select" autoFocus>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
         </select>
     )
 }
