@@ -1,8 +1,39 @@
-.App {
-  padding: 30px;
-  display: flex;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.App > div {
-  margin-right: 50px;
+.App {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root {
+    padding: 3px !important;
+}
+
+li {
+    list-style: none;
+}
+
+.title{
+    margin-bottom: 10px;
+}
+
+.css-1ps6pg7-MuiPaper-root {
+    padding: 10px;
+    margin: 5px;
+    min-width: 150px;
+    min-height: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.films-container {
+    display: flex;
+    flex-wrap: wrap;
 }

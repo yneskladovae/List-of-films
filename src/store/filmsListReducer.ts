@@ -23,7 +23,8 @@ export const filmsListReducer = (state: initialStateType[] = initialState, actio
         case('CHANGE-WATCHED-STATUS'): {
             return state.map(el => el.id === action.payload.filmId ? {
                 ...el,
-                isWatched: action.payload.isWatchedValue
+                isWatched: action.payload.isWatchedValue,
+                rating: 0
             } : el)
         }
         case('ADD-FILM-RATING'): {
@@ -65,7 +66,7 @@ export const changeIsWatchedStatusAC = (filmId: string, isWatchedValue: boolean)
 }
 
 
-export const addFilmRatingAC = (filmId: string, ratingValue: number) => {
+export const addFilmRatingAC = (filmId: string, ratingValue: number | null) => {
     return {
         type: 'ADD-FILM-RATING',
         payload: {
