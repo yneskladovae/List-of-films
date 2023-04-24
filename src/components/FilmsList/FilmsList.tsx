@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {addFilmAC, addFilmRatingAC, changeIsWatchedStatusAC, initialStateType} from "../../store/filmsListReducer";
 import {AppRootStateType} from "../../store/state";
+import {FilmRating} from "../FilmRating/FilmRating";
 
 export const FilmsList = () => {
     const films = useSelector<AppRootStateType, Array<initialStateType>>(state => state.filmsList)
@@ -52,19 +53,3 @@ export const FilmsList = () => {
         </div>
     );
 };
-
-export type FilmRatingPropsType = {
-    onChange: (e: ChangeEvent<HTMLSelectElement>) => void
-}
-
-export const FilmRating: FC<FilmRatingPropsType> = ({onChange}) => {
-    return (
-        <select onChange={onChange} name="select" autoFocus>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    )
-}
