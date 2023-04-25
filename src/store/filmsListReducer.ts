@@ -5,6 +5,7 @@ export type initialStateType = {
     film: string
     rating: null | number
     isWatched: boolean
+    color: string
 }
 
 const initialState: initialStateType[] = []
@@ -16,7 +17,8 @@ export const filmsListReducer = (state: initialStateType[] = initialState, actio
                 id: v1(),
                 film: action.payload.filmTitle,
                 rating: null,
-                isWatched: false
+                isWatched: false,
+                color: action.payload.color
             }
             return [...state, newFilm]
         }
@@ -45,11 +47,12 @@ export type addFilmACType = ReturnType<typeof addFilmAC>
 export type changeIsWatchedStatusACType = ReturnType<typeof changeIsWatchedStatusAC>
 export type addFilmRatingACType = ReturnType<typeof addFilmRatingAC>
 
-export const addFilmAC = (filmTitle: string) => {
+export const addFilmAC = (filmTitle: string, color: string) => {
     return {
         type: 'ADD-FILM',
         payload: {
-            filmTitle
+            filmTitle,
+            color
         }
     } as const
 }
