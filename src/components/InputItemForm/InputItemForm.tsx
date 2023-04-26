@@ -2,8 +2,9 @@ import React, {ChangeEvent, memo, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
-import {addFilmAC} from "../../store/filmsListReducer";
-import {useDispatch} from "react-redux";
+import {addFilmAC, initialStateType} from "../../store/filmsListReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../store/state";
 
 const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
@@ -14,7 +15,10 @@ const getRandomColor = () => {
     return color;
 }
 
+
 export const InputItemForm = memo(() => {
+    const films = useSelector<AppRootStateType, Array<initialStateType>>(state => state.filmsList)
+
     console.log('InputItemForm')
     const [title, setTitle] = useState('')
     const dispatch = useDispatch()

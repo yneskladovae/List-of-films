@@ -39,3 +39,7 @@ li {
     justify-content: start;
 
 }
+.add-search-films {
+    display: flex;
+    justify-content: center;
+}
