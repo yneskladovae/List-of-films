@@ -15,6 +15,7 @@ const getRandomColor = () => {
 }
 
 export const InputItemForm = memo(() => {
+    console.log('InputItemForm')
     const [title, setTitle] = useState('')
     const dispatch = useDispatch()
 
