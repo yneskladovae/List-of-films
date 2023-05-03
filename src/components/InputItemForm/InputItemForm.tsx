@@ -1,10 +1,9 @@
-import React, {ChangeEvent, memo, useState} from 'react';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
-import {addFilmAC, initialStateType} from "../../store/filmsListReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/state";
+import {addFilmAC} from "../../store/filmsListReducer";
+import {useDispatch} from "react-redux";
 
 const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
@@ -15,11 +14,11 @@ const getRandomColor = () => {
     return color;
 }
 
+type InputItemFormPropsType = {
+    setSearchTerm: (searchTerm: string) => void
+}
 
-export const InputItemForm = memo(() => {
-    const films = useSelector<AppRootStateType, Array<initialStateType>>(state => state.filmsList)
-
-    console.log('InputItemForm')
+export const InputItemForm: FC<InputItemFormPropsType> = memo(({setSearchTerm}) => {
     const [title, setTitle] = useState('')
     const dispatch = useDispatch()
 
@@ -31,6 +30,7 @@ export const InputItemForm = memo(() => {
         const newFilm = title[0].toUpperCase() + title.slice(1);
         dispatch(addFilmAC(newFilm.trim(), getRandomColor()))
         setTitle('')
+        setSearchTerm('')
     }
 
     return (
